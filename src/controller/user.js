@@ -55,6 +55,7 @@ const login = async (req, res, next) => {
     
     // generate token
     user.token = authHelper.generateToken(payload)
+    user.refreshToken = authHelper.gerateRefreshToken(payload)
 
     response(res, user, 201, 'anda berhasil login')
   } catch (error) {
@@ -85,7 +86,7 @@ const refreshToken = (req, res) => {
   const result = {
     refreshToken: authHelper.gerateRefreshToken(payload)
   }
-  response(res, result, 200)
+  response(res, result, 200, 'update token berhasil')
 }
 module.exports = {
   register,
