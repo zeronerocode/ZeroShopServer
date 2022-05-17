@@ -47,11 +47,12 @@ const insertProduct = ({ name, description, stock, price, idCategory, createdAt,
   })
 }
 
-const updateProduct = (name, description, stock, price, idCategory, id) => {
+const updateProduct = ({name, description, stock, price, idCategory, photo, updateAt, id}) => {
+  console.log(name)
   return new Promise((resolve, reject) => {
     pool.query(
-      'UPDATE product SET (name, description, stock, price, id_category) VALUES ($1, $2, $3, $4, $5) WHERE id = $6',
-      [name, description, stock, price, idCategory, id],
+      'UPDATE products SET name=$1, description=$2, stock=$3, price=$4, id_category=$5, photo=$6, updated_at=$7  WHERE id = $8',
+      [name, description, stock, price, idCategory, photo, updateAt, id],
       (err, result) => {
         if (!err) {
           resolve(result)

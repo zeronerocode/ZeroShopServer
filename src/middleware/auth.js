@@ -30,11 +30,10 @@ const isSeller = (req, res, next)=>{
   if(req.decoded.role !== 'seller'){
     return next(createError(400, 'seller only'))
   }
+  
   next()
 }
 module.exports = {
   protect,
   isSeller
 };
-
-// localhost:4000/users/profile

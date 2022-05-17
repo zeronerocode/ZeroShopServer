@@ -53,7 +53,7 @@ const insertProduct = (req, res, next) => {
     price,
     idCategory,
     photo:`http://${req.get('host')}/img/${req.file.filename}`,
-    createdAt: new Date()
+    updateAt: new Date()
   }
   productModel.insertProduct(data)
     .then(() => {

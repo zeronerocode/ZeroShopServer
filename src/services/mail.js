@@ -13,7 +13,7 @@ const sendEmail = async(email)=>{
           pass: process.env.MAIL_PASS, // generated ethereal password
         },
       });
-      const token = jwt.sign({email:email}, 'emaildskf233r',{
+      const token = jwt.sign({email:email}, 'yuqyrqwq',{
         expiresIn: '24h'
       })
       // send mail with defined transport object
@@ -29,25 +29,6 @@ const sendEmail = async(email)=>{
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
             <style>
-                .container{
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 300px;
-                    height: 100px;
-                    border-radius: 10px;
-                    background-color: red;
-                    margin-top: 20px;
-                    padding-top: 100px;
-                }
-                .container a{
-                    text-align: center;
-                    display: block;
-                    color: yellow;
-                    background-color: blue;
-                    width: 100%;
-                    padding: 10px 0px 10px;
-                    text-decoration: none;
-                }
             </style>
         </head>
         <body>

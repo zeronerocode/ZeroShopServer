@@ -1,7 +1,7 @@
 const createError = require('http-errors')
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid')
-const { findEmail, insert } = require('../model/user')
+const { findEmail, insert, deleteUser } = require('../model/user')
 const { response } = require('../helper/response')
 const jwt = require('jsonwebtoken')
 const authHelper = require('../services/auth')
@@ -50,12 +50,11 @@ const login = async (req, res, next) => {
 
     const payload = {
       email: user.email,
-      role: user.role
+      role: user.roles
     }
     
     // generate token
     user.token = authHelper.generateToken(payload)
-    user.refreshToken = authHelper.gerateRefreshToken(payload)
 
     response(res, user, 201, 'anda berhasil login')
   } catch (error) {
@@ -64,26 +63,33 @@ const login = async (req, res, next) => {
   }
 }
 
-const deleteUser = (id) => {
-
+const delUser = (req, res, next) => {
+  const email = req.params.email
+  deleteUser(email)
+  .then(() => {
+    response(res, email, 201, 'anda berhasil login')
+  })
+  .catch((error) => {
+    console.log(error)
+    next(new createError.InternalServerError())
+  })
 }
 
-const refreshToken = (req, res, next) => {
+const refreshToken = (req, res) => {
   const refreshToken = req.body.refreshToken
   const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY_JWT)
   const payload = {
     email: decoded.email,
     role: decoded.role
   }
-  const rusult = {
-    token: authHelper.generateToken(payload),
+  const result = {
     refreshToken: authHelper.gerateRefreshToken(payload)
   }
-  response(res, rusult, 200)
+  response(res, result, 200)
 }
 module.exports = {
   register,
   login,
-  deleteUser,
+  delUser,
   refreshToken
 }

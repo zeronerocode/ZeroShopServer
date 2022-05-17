@@ -23,8 +23,16 @@ const insert = ({ id, email, password, name }) => {
   })
 }
 
-const deleteUser = async (req, res, next) => {
-
+const deleteUser = ({email})=> {
+  return new Promise((resolve, reject) => {
+    pool.query('DELETE FROM products WHERE email = $1', [email], (error, result) => {
+      if (!error) {
+        resolve(result)
+      } else {
+        reject(error)
+      }
+    })
+  })
 }
 
 module.exports = {
