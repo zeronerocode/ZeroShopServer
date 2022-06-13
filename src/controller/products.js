@@ -2,14 +2,14 @@ const productModel = require('../model/products')
 const createError = require('http-errors')
 const errorServ = new createError.InternalServerError()
 const { response } = require('../helper/response')
+const client = require('../config/redis')
 
 const getProductById = async (req, res, next) => {
   try {
     const id = req.params.id
     const result = await productModel.getProductById(id)
-    res.status(200).json({
-      data: result
-    })
+    client.setEx(`products/${id}`, 60*60, JSON.stringify(result))
+    response(res, result, 200, 'get data dari database')
   } catch (error) {
     console.log(error)
     next(errorServ)

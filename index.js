@@ -5,6 +5,7 @@ const errorHandler = require('http-errors')
 const helmet = require('helmet')
 const xss = require('xss-clean')
 const path = require('path')
+const morgan = require('morgan')
 
 const serverRoute = require('./src/routes')
 const app = express()
@@ -12,10 +13,14 @@ const PORT = process.env.PORT || 8080
 
 app.use(express.json())
 app.use(cors())
-app.use(helmet())
 app.use(xss())
+app.use(morgan('env'))
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+})) 
 
 app.use('/', serverRoute)
+
 
 app.use('/img', express.static(path.join(__dirname, '/upload')))
 
