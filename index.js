@@ -14,11 +14,18 @@ const PORT = process.env.PORT || 8080
 app.use(express.json())
 app.use(cors())
 app.use(xss())
-app.use(morgan('env'))
+app.use(morgan('dev'))
 app.use(helmet({
   crossOriginResourcePolicy: false,
 })) 
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  // res.header(
+  //   "Access-Control-Allow-Headers",
+  //   "Origin, X-Request-With, Content-Type, Accept, Authorization"
+  // );
+  next();
+});
 app.use('/', serverRoute)
 
 
@@ -28,6 +35,7 @@ app.all('*', (req, res, next) => {
   next(new errorHandler.NotFound())
 })
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const messError = err.message || 'Internal Server Error'
   const statusCode = err.status || 500

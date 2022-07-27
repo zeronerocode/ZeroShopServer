@@ -2,14 +2,15 @@ const productModel = require('../model/products')
 const createError = require('http-errors')
 const errorServ = new createError.InternalServerError()
 const { response } = require('../helper/response')
-const client = require('../config/redis')
+const cloudinary = require('../helper/cloudinary');
+// const client = require('../config/redis')
 
 const getProductById = async (req, res, next) => {
   try {
     const id = req.params.id
     const result = await productModel.getProductById(id)
-    client.setEx(`products/${id}`, 60*60, JSON.stringify(result))
-    response(res, result, 200, 'get data dari database')
+    // client.setEx(`products/${id}`, 60*60, JSON.stringify(result))
+    response(res, result[0], 200, 'get data dari database')
   } catch (error) {
     console.log(error)
     next(errorServ)
@@ -43,16 +44,17 @@ const getAllProduct = async (req, res, next) => {
   }
 }
 
-const insertProduct = (req, res, next) => {
+const insertProduct = async(req, res, next) => {
   const { name, description, price, stock, idCategory } = req.body
-
+  console.log('backend =>', req.file);
+  const img = await cloudinary.uploader.upload(req.file.path)
   const data = {
     name,
     description,
     stock,
     price,
     idCategory,
-    photo:`http://${req.get('host')}/img/${req.file.filename}`,
+    photo:img.secure_url,
     updateAt: new Date()
   }
   productModel.insertProduct(data)
