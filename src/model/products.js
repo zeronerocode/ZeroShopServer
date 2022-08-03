@@ -3,10 +3,10 @@ const pool = require('../config/db')
 const getProductById = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'SELECT products.*, category.name AS name_category FROM products INNER JOIN category ON products.id_category = category.id WHERE products.id = $1', [id],
+      `SELECT products.*, category.name AS name_category FROM products INNER JOIN category ON products.id_category = category.id WHERE products.id = ${id}`,
       (err, result) => {
         if (!err) {
-          resolve(result.rows)
+          resolve(result)
         } else {
           reject(new Error(err))
         }
@@ -47,8 +47,7 @@ const insertProduct = ({ name, description, stock, price, idCategory, createdAt,
   })
 }
 
-const updateProduct = ({name, description, stock, price, idCategory, photo, updateAt, id}) => {
-  console.log(name)
+const updateProduct = ({name, description, stock, price, idCategory, photo, updateAt},id) => {
   return new Promise((resolve, reject) => {
     pool.query(
       'UPDATE products SET name=$1, description=$2, stock=$3, price=$4, id_category=$5, photo=$6, updated_at=$7  WHERE id = $8',

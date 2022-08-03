@@ -2,6 +2,7 @@ const pool = require('../config/db')
 
 const getTransactionById = (id) => {
   return new Promise((resolve, reject) => {
+    console.log(id);
     pool.query(
       `SELECT transaction.id, users.name AS user_name, products.name AS product_name,transaction.status FROM ((transaction
         INNER JOIN products ON transaction.id_products = products.id)
@@ -21,9 +22,9 @@ const getTransactionById = (id) => {
 const getAllTransaction = ({ limit, offset }) => {
   return new Promise((resolve, reject) => {
     pool.query(
-        `SELECT transaction.id, users.name AS user_name, products.name AS product_name,transaction.status 
+        `SELECT transaction.id, users.name AS user_name, products.name AS product_name, products.photo, products.price,transaction.status 
           FROM ((transaction
-          INNER JOIN products ON transaction.id_products = products.id)
+          INNER JOIN products ON transaction.id_product = products.id)
           INNER JOIN users ON transaction.id_user = users.id)
           LIMIT $1 OFFSET $2`,
         [limit, offset],
@@ -38,11 +39,11 @@ const getAllTransaction = ({ limit, offset }) => {
   })
 }
 
-const insertTransaction = ({ idProduct, idUser }) => {
+const insertTransaction = ({ idProduct, idUser, status}) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      'INSERT INTO transaction(id_product, id_user)VALUES($1, $2)',
-      [idProduct, idUser],
+      'INSERT INTO transaction(id_product, id_user, status)VALUES($1, $2, $3)',
+      [idProduct, idUser, status],
       (err, result) => {
         if (!err) {
           resolve(result)

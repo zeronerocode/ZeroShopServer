@@ -5,7 +5,7 @@ const { findEmail, insert, deleteUser } = require('../model/user')
 const { response } = require('../helper/response')
 const jwt = require('jsonwebtoken')
 const authHelper = require('../services/auth')
-const { sendEmail } = require('../services/mail')
+// const { sendEmail } = require('../services/mail')
 
 const register = async (req, res, next) => {
   try {
@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
       name
     }
     await insert(data)
-    sendEmail(email)
+    // sendEmail(email)
     response(res, data, 201, 'user resgiter berhasil')
   } catch (error) {
     console.log(error)

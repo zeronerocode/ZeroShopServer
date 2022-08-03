@@ -46,11 +46,11 @@ const getAllTransaction = async (req, res, next) => {
 }
 
 const insertTransaction = (req, res, next) => {
-  const { idUser, idProduct, status } = req.body
+  const { idUser, idProduct} = req.body
   const data = {
     idUser,
     idProduct,
-    status,
+    status : 1,
     createdAt: new Date()
   }
   transactionModel.insertTransaction(data)
