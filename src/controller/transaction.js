@@ -80,9 +80,9 @@ const deleteTransaction = (req, res, next) => {
 }
 
 const updateTransaction = (req, res, next) => {
-  const id = req.params.id
+  // const id = req.params.id
   const { idProduct, idUser, status } = req.body
-  transactionModel.updateTransaction(idProduct, idUser, status, id)
+  transactionModel.updateTransaction(idProduct, idUser, status)
     .then(() => {
       res.status(201).json({
         idProduct, idUser, status

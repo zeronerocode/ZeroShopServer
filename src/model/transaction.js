@@ -5,7 +5,7 @@ const getTransactionById = (id) => {
     console.log(id);
     pool.query(
       `SELECT transaction.id, users.name AS user_name, products.name AS product_name,transaction.status FROM ((transaction
-        INNER JOIN products ON transaction.id_products = products.id)
+        INNER JOIN products ON transaction.id_product = products.id)
         INNER JOIN users ON transaction.id_user = users.id)
         WHERE transaction.id = $1`, [id],
       (err, result) => {
@@ -19,15 +19,14 @@ const getTransactionById = (id) => {
   })
 }
 
-const getAllTransaction = ({ limit, offset }) => {
+const getAllTransaction = () => {
   return new Promise((resolve, reject) => {
     pool.query(
         `SELECT transaction.id, users.name AS user_name, products.name AS product_name, products.photo, products.price,transaction.status 
           FROM ((transaction
           INNER JOIN products ON transaction.id_product = products.id)
           INNER JOIN users ON transaction.id_user = users.id)
-          LIMIT $1 OFFSET $2`,
-        [limit, offset],
+          WHERE transaction.status = 1`,
         (err, result) => {
           if (!err) {
             resolve(result.rows)
@@ -55,10 +54,9 @@ const insertTransaction = ({ idProduct, idUser, status}) => {
   })
 }
 
-const updateTransaction = (idProduct, idUser, status, id) => {
+const updateTransaction = () => {
   return new Promise((resolve, reject) => {
-    pool.query('UPDATE transaction SET(id_product, id_user, status)VALUE($1, $2, $3) WHERE id = $4',
-      [idProduct, idUser, status, id],
+    pool.query('UPDATE transaction SET status = 2 WHERE status = 1',
       (err, result) => {
         if (!err) {
           resolve(result)
