@@ -15,9 +15,9 @@
 
 A small full-stack e-commerce project built with Postgres, Express, React and Node.
 <br/>
-[![Node.js](https://img.shields.io/badge/Node.js-v.16.14.0-green.svg?style=flat-square&logo=appveyor)](https://nodejs.org/) 
-[![Express.js](https://img.shields.io/badge/Express.js-4.17.3-orange.svg?style=flat-square&logo=appveyor)](https://expressjs.com/en/starter/installing.html) 
-[![PostgreSQL](https://img.shields.io/badge/postgresql-v14.2-blue?style=flat-square&logo=appveyor)](https://www.postgresql.org/) 
+[![Node.js](https://img.shields.io/badge/Node.js-v.16.14.0-green.svg?style=for-the-badge&logo=appveyor)](https://nodejs.org/) 
+[![Express.js](https://img.shields.io/badge/Express.js-4.17.3-orange.svg?style=for-the-badge&logo=appveyor)](https://expressjs.com/en/starter/installing.html) 
+[![PostgreSQL](https://img.shields.io/badge/postgresql-v14.2-blue?style=for-the-badge&logo=appveyor)](https://www.postgresql.org/) 
 <br>
 ![Lines of code](https://img.shields.io/tokei/lines/github/zeronerocode/ZeroShopServer?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/zeronerocode/ZeroShopServer?style=for-the-badge)
