@@ -77,10 +77,10 @@ API_SECRET = "secret key"
 ```
 ## Related Project
 
-:rocket: [`Backend Blanja`](https://github.com/zeronerocode/ZeroShopServer/)
+:rocket: [`Backend ZeroStore`](https://github.com/zeronerocode/ZeroShopServer/)
 
-:rocket: [`Frontend Blanja`](https://github.com/zeronerocode/zeroshopreact/)
+:rocket: [`Frontend ZeroStore`](https://github.com/zeronerocode/zeroshopreact/)
 
 :rocket: [`Web Service`](https://zerhoshop-server.herokuapp.com/)
 
-:rocket: [`Demo Blanja`](https://zeroshopreact.vercel.app)
+:rocket: [`Demo ZeroStore`](https://zeroshopreact.vercel.app)
